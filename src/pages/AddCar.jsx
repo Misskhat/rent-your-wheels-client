@@ -2,6 +2,7 @@ import React from "react";
 import addCarBg from "../assets/addCarBg.jpg";
 
 const AddCar = () => {
+    
     const handleAddCar = (e) => {
         e.preventDefault();
         const carName = e.target.carName.value;
@@ -13,7 +14,19 @@ const AddCar = () => {
         const providerName = e.target.providerName.value;
         const providerEmail = e.target.providerEmail.value;
         const status = "available";
-        console.log(carName, description, category, rentPrice, location, imageURL, providerName, providerEmail, status);
+        const newAddCar = {
+            carName,
+            description,
+            category,
+            rentPrice,
+            location,
+            imageURL,
+            providerName,
+            providerEmail,
+            status,
+        };
+
+        
     };
     return (
         <div className="">
