@@ -1,8 +1,10 @@
 import React from "react";
 import addCarBg from "../assets/addCarBg.jpg";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const AddCar = () => {
-    
+    const axiosSecure = useAxiosSecure();
+
     const handleAddCar = (e) => {
         e.preventDefault();
         const carName = e.target.carName.value;
@@ -25,8 +27,7 @@ const AddCar = () => {
             providerEmail,
             status,
         };
-
-        
+        axiosSecure.post("/addCar", newAddCar).then((data) => console.log(data.data));
     };
     return (
         <div className="">

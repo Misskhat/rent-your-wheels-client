@@ -12,7 +12,7 @@ import Register from "../pages/Register";
 export const router = createBrowserRouter([
     {
         path: "/",
-        ErrorBoundary: <ErrorPage></ErrorPage>,
+        // ErrorBoundary: <ErrorPage></ErrorPage>,
         hydrateFallbackElement: <ErrorPage></ErrorPage>,
         Component: MainLayout,
 

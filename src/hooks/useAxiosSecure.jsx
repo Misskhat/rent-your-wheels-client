@@ -1,5 +1,5 @@
 import axios from "axios";
-import {use, useEffect} from "react";
+import {useEffect} from "react";
 import useAuth from "./useAuth";
 
 const instance = axios.create({
@@ -10,7 +10,7 @@ const useAxiosSecure = () => {
     const {user} = useAuth();
     useEffect(() => {
         const requestInstance = instance.interceptors.request.use((config) => {
-            config.headers.authorization = `Bearer ${user.token}`;
+            config.headers.authorization = `Bearer ${user?.token}`;
             return config;
         });
         const responseInstance = instance.interceptors.response.use((res) => {
@@ -21,7 +21,7 @@ const useAxiosSecure = () => {
             instance.interceptors.request.eject(requestInstance);
             instance.interceptors.response.eject(responseInstance);
         };
-    }, []);
+    }, [user]);
     return instance;
 };
 
