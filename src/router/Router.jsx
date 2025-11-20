@@ -8,14 +8,14 @@ import AddCar from "../pages/AddCar";
 import MyListings from "../pages/MyListings";
 import LogIn from "../pages/LogIn";
 import Register from "../pages/Register";
+import PrivateRouter from "../pages/PrivateRouter";
 
 export const router = createBrowserRouter([
     {
         path: "/",
-        // ErrorBoundary: <ErrorPage></ErrorPage>,
-        hydrateFallbackElement: <ErrorPage></ErrorPage>,
-        Component: MainLayout,
-
+        errorElement: <ErrorPage></ErrorPage>,
+        // hydrateFallbackElement: <ErrorPage></ErrorPage>,
+        element: <MainLayout></MainLayout>,
         children: [
             {
                 index: true,
@@ -27,15 +27,23 @@ export const router = createBrowserRouter([
                 element: <BrowseCars></BrowseCars>,
             },
             {
-                path: "/carDetails",
+                path: "/carDetails/:id",
                 element: <CarDetails></CarDetails>,
             },
             {
                 path: "/addCar",
-                element: <AddCar></AddCar>,
+                element: (
+                    <PrivateRouter>
+                        <AddCar></AddCar>
+                    </PrivateRouter>
+                ),
             },
             {
                 path: "/myListings",
+                element: <MyListings></MyListings>,
+            },
+            {
+                path: "/myBookings",
                 element: <MyListings></MyListings>,
             },
             {
