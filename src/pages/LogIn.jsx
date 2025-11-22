@@ -4,12 +4,12 @@ import useAuth from "../hooks/useAuth";
 import {toast, ToastContainer} from "react-toastify";
 
 const LogIn = () => {
-    const {signInUser} = useAuth();
+    const {signInUser, googleSignIn} = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
 
-    // console.log(navigate());
+    // custom email and password;
     const handleLogIn = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
@@ -21,6 +21,17 @@ const LogIn = () => {
             toast.success("Successfully Login");
         })
         .catch((error) => console.log(error));
+    };
+
+    // SignIn google provider
+    const signInWithGoogle = () => {
+        googleSignIn()
+        .then((res) => {
+            toast.success("Successfully Login", res.user);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     };
 
     return (
@@ -52,7 +63,7 @@ const LogIn = () => {
                     <div className="divider">OR</div>
 
                     <button
-                        // onClick={signInWithGoogle}
+                        onClick={signInWithGoogle}
                         className="w-full p-3 border rounded-lg hover:bg-gray-200 transition"
                     >
                         Continue with Google

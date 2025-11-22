@@ -47,6 +47,16 @@ const Register = () => {
         .catch((error) => console.log(error.message));
     };
 
+    const signInWithGoogle = () => {
+        googleSignIn()
+        .then((res) => {
+            toast.success("Successfully Login", res.user);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
+
     return (
         <div className="min-h-screen flex justify-center items-center bg-gray-100">
             <div className="w-full max-w-md p-8 shadow-lg rounded-2xl bg-white">
@@ -84,7 +94,7 @@ const Register = () => {
                 <div className="divider">OR</div>
 
                 <button
-                    // onClick={signInWithGoogle}
+                    onClick={signInWithGoogle}
                     className="w-full p-3 border rounded-lg hover:bg-gray-200 transition"
                 >
                     Sign Up with Google
