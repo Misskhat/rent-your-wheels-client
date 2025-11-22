@@ -1,12 +1,12 @@
-import {Link, useNavigate} from "react-router";
+import {Link, useLocation, useNavigate} from "react-router";
 import useAuth from "../hooks/useAuth";
-import {auth} from "../firebase/firebase.config";
 import {toast, ToastContainer} from "react-toastify";
 
 const Register = () => {
-    const {signUpUser, setUser} = useAuth();
+    const {signUpUser, profileAdded} = useAuth();
 
-    const navigate = useNavigate(); //TODO: after signup use it
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -17,15 +17,34 @@ const Register = () => {
         const password = e.target.password.value;
         console.log(name, email, photoURL, password);
 
+        if (password.length < 6) {
+            return toast.error("Password must be at least 6 characters long");
+        }
+
+        if (!/[A-Z]/.test(password)) {
+            return toast.error("Password must contain at least one uppercase letter");
+        }
+
+        if (!/[a-z]/.test(password)) {
+            return toast.error("Password must contain at least one lowercase letter");
+        }
+
         signUpUser(email, password)
         .then((res) => {
             const user = res.user;
-            toast.success("Your are successfully register");
+            return profileAdded(user, {
+                displayName: name,
+                photoURL: photoURL,
+            })
+            .then(() => {
+                toast.success("Your are successfully register");
+                navigate(location?.state || "/");
+            })
+            .catch((error) => {
+                toast.error(error.message);
+            });
         })
         .catch((error) => console.log(error.message));
-
-        // TODO: validate password
-        // TODO: create user
     };
 
     return (

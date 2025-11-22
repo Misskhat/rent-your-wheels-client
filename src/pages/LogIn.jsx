@@ -6,8 +6,8 @@ import {toast, ToastContainer} from "react-toastify";
 const LogIn = () => {
     const {signInUser} = useAuth();
 
-    const navigate = useNavigate(); //TODO: after signin i'm use
-    const location = useLocation(); //TODO: after signin i'm use
+    const navigate = useNavigate();
+    const location = useLocation();
 
     // console.log(navigate());
     const handleLogIn = (e) => {
@@ -17,6 +17,7 @@ const LogIn = () => {
         signInUser(email, password)
         .then((res) => {
             console.log(res);
+            navigate(location?.state || "/");
             toast.success("Successfully Login");
         })
         .catch((error) => console.log(error));
