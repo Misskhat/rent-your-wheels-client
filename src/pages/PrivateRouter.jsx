@@ -1,18 +1,17 @@
 import useAuth from "../hooks/useAuth";
 import Spinner from "../components/Spinner";
-import {Navigate, useLocation} from "react-router";
+import {Navigate, replace, useLocation} from "react-router";
 
 const PrivateRouter = ({children}) => {
-    const {user, loader} = useAuth();
     const location = useLocation();
+    const {user, loader} = useAuth();
     if (loader) {
         return <Spinner></Spinner>;
     }
     if (user) {
         return children;
-    } else {
-        return <Navigate to={"/login"} state={location}></Navigate>;
     }
+    return <Navigate to={"/login"} state={location.pathname}></Navigate>;
 };
 
 export default PrivateRouter;

@@ -1,8 +1,9 @@
 import {Link, NavLink} from "react-router";
 import useAuth from "../hooks/useAuth";
+import {toast} from "react-toastify";
 
 const Navbar = () => {
-    const {user} = useAuth();
+    const {user, logOutUser} = useAuth();
     const links = (
         <>
             <NavLink to={"/"}>Home</NavLink>
@@ -17,6 +18,17 @@ const Navbar = () => {
             )}
         </>
     );
+
+    const handleLogOut = () => {
+        logOutUser()
+        .then(() => {
+            toast.success("Your are successfully log out");
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
+
     return (
         <div className="md:w-11/12 mx-auto">
             <div>
@@ -72,7 +84,7 @@ const Navbar = () => {
                                         <a>{user?.email}</a>
                                     </li>
                                     <li className="text-[#13c7e8] hover:border-b-2 rounded">
-                                        <Link to={"/login"}>Log Out</Link>
+                                        <button onClick={handleLogOut}>Log Out</button>
                                     </li>
                                 </ul>
                             </div>

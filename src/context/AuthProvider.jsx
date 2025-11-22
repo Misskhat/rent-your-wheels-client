@@ -41,10 +41,8 @@ const AuthProvider = ({children}) => {
     //Observer setup
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                setUser(currentUser);
-                setLoader(false);
-            }
+            setUser(currentUser);
+            setLoader(false);
         });
         return () => unsubscribe();
     }, []);
@@ -54,6 +52,7 @@ const AuthProvider = ({children}) => {
         signInUser,
         googleSignIn,
         logOutUser,
+        setUser,
         user,
         loader,
     };
