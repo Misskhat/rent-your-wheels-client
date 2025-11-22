@@ -10,7 +10,9 @@ const useAxiosSecure = () => {
     const {user} = useAuth();
     useEffect(() => {
         const requestInstance = instance.interceptors.request.use((config) => {
-            config.headers.authorization = `Bearer ${user?.token}`;
+            if (user?.token) {
+                config.headers.authorization = `Bearer ${user?.token}`;
+            }
             return config;
         });
         const responseInstance = instance.interceptors.response.use((res) => {
@@ -22,6 +24,7 @@ const useAxiosSecure = () => {
             instance.interceptors.response.eject(responseInstance);
         };
     }, [user]);
+
     return instance;
 };
 

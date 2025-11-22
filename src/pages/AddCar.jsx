@@ -1,114 +1,140 @@
 import React from "react";
-import addCarBg from "../assets/addCarBg.jpg";
-import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const AddCar = () => {
-    const axiosSecure = useAxiosSecure();
-
     const handleAddCar = (e) => {
         e.preventDefault();
-        const carName = e.target.carName.value;
-        const description = e.target.description.value;
-        const category = e.target.category.value;
-        const rentPrice = e.target.rentPrice.value;
-        const location = e.target.location.value;
-        const imageURL = e.target.imageURL.value;
-        const providerName = e.target.providerName.value;
-        const providerEmail = e.target.providerEmail.value;
-        const status = "available";
-        const newAddCar = {
+
+        const form = e.target;
+        const carName = form.carName.value;
+        const image = form.image.value;
+        const type = form.type.value;
+        const location = form.location.value;
+        const price = form.price.value;
+        const availability = form.availability.value;
+        const description = form.description.value;
+
+        console.log({
             carName,
-            description,
-            category,
-            rentPrice,
+            image,
+            type,
             location,
-            imageURL,
-            providerName,
-            providerEmail,
-            status,
-        };
-        axiosSecure.post("/addCar", newAddCar).then((data) => console.log(data.data));
+            price,
+            availability,
+            description,
+        });
     };
+
     return (
-        <div className="">
-            <h1 className="text-center text-4xl my-10 font-semibold">
-                Hi <span className="font-bold text-blue-700">{"User Name"}</span>, <br />
-                If you want to add your car, don't delay and fill-up the below simple form
-            </h1>
+        <div className="min-h-screen flex justify-center items-center bg-gray-100 py-10 px-4">
+            <div className="w-full max-w-3xl bg-white shadow-xl rounded-2xl p-8">
+                <h2 className="text-3xl font-bold text-center mb-6 text-[#12d8fa]">Add a New Car</h2>
 
-            {/* add car form  */}
-            <div className="hero min-h-screen">
-                <div className="card bg-base-100 w-full lg:max-w-[700px] md:max-w[500px] max-w-sm shrink-0 shadow-2xl">
-                    <div className="card-body">
-                        <form onSubmit={handleAddCar}>
-                            <fieldset className="fieldset space-y-2 font-semibold">
-                                {/* Car Name */}
-                                <label className="label text-xl">Car Name</label>
-                                <input type="text" className="input w-full" placeholder="Car Name" name="carName" />
-
-                                {/* description */}
-                                <label className="label text-xl">Description</label>
-                                <textarea
-                                    placeholder="Provide a short description of your car."
-                                    className="textarea textarea-md w-full"
-                                    name="description"
-                                ></textarea>
-
-                                {/*category */}
-                                <label className="label text-xl">Select Your Category</label>
-                                <select
-                                    defaultValue="Category"
-                                    className="select select-neutral w-full"
-                                    name="category"
-                                >
-                                    <option disabled={true}>Select your category</option>
-                                    <option value={"sedan"}>Sedan</option>
-                                    <option value={"suv"}>SUV</option>
-                                    <option value={"hatchback"}>Hatchback</option>
-                                    <option value={"luxury"}>Luxury</option>
-                                    <option value={"electric"}>Electric</option>
-                                </select>
-
-                                {/* rent price */}
-                                <label className="label text-xl">Rent Price (Per Day)</label>
-                                <input type="text" className="input w-full" placeholder="Rent Price" name="rentPrice" />
-
-                                {/*location */}
-                                <label className="label text-xl">Location</label>
-                                <input type="text" className="input w-full" placeholder="Location" name="location" />
-
-                                {/*car image */}
-                                <label className="label text-xl">Car Image URL</label>
-                                <input
-                                    type="text"
-                                    className="input w-full"
-                                    placeholder="Car Image URL"
-                                    name="imageURL"
-                                />
-
-                                {/*car image */}
-                                <label className="label text-xl">Provider Name</label>
-                                <input
-                                    type="text"
-                                    className="input w-full"
-                                    placeholder="Provider Name"
-                                    name="providerName"
-                                />
-
-                                {/*car image */}
-                                <label className="label text-xl">Provider Email</label>
-                                <input
-                                    type="email"
-                                    className="input w-full"
-                                    placeholder="Provider Email"
-                                    name="providerEmail"
-                                />
-
-                                <button className="btn btn-neutral mt-4">Submit</button>
-                            </fieldset>
-                        </form>
+                <form onSubmit={handleAddCar} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Car Name */}
+                    <div className="flex flex-col">
+                        <label className="font-semibold mb-1">Car Name</label>
+                        <input
+                            type="text"
+                            name="carName"
+                            className="p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#12d8fa]"
+                            placeholder="Toyota Corolla"
+                            required
+                        />
                     </div>
-                </div>
+
+                    {/* Car Image */}
+                    <div className="flex flex-col">
+                        <label className="font-semibold mb-1">Car Image URL</label>
+                        <input
+                            type="url"
+                            name="image"
+                            className="p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#12d8fa]"
+                            placeholder="https://example.com/car.jpg"
+                            required
+                        />
+                    </div>
+
+                    {/* Type */}
+                    <div className="flex flex-col">
+                        <label className="font-semibold mb-1">Category / Type</label>
+                        <select
+                            name="type"
+                            className="p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#12d8fa]"
+                            required
+                        >
+                            <option value="">Select a type</option>
+                            <option value="Sedan">Sedan</option>
+                            <option value="SUV">SUV</option>
+                            <option value="Luxury">Luxury</option>
+                            <option value="Electric">Electric</option>
+                            <option value="Hybrid">Hybrid</option>
+                            <option value="Coupe">Coupe</option>
+                            <option value="Hatchback">Hatchback</option>
+                            <option value="Van">Van</option>
+                        </select>
+                    </div>
+
+                    {/* Location */}
+                    <div className="flex flex-col">
+                        <label className="font-semibold mb-1">Location</label>
+                        <input
+                            type="text"
+                            name="location"
+                            className="p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#12d8fa]"
+                            placeholder="Dhaka, Bangladesh"
+                            required
+                        />
+                    </div>
+
+                    {/* Price */}
+                    <div className="flex flex-col">
+                        <label className="font-semibold mb-1">Rent Price (Per Day)</label>
+                        <input
+                            type="number"
+                            name="price"
+                            className="p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#12d8fa]"
+                            placeholder="2500"
+                            required
+                        />
+                    </div>
+
+                    {/* Availability */}
+                    <div className="flex flex-col">
+                        <label className="font-semibold mb-1">Availability</label>
+                        <select
+                            name="availability"
+                            className="p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#12d8fa]"
+                            required
+                        >
+                            <option value="">Select availability</option>
+                            <option value="Available">Available</option>
+                            <option value="Unavailable">Unavailable</option>
+                        </select>
+                    </div>
+
+                    {/* Description */}
+                    <div className="flex flex-col md:col-span-2">
+                        <label className="font-semibold mb-1">Car Description</label>
+                        <textarea
+                            name="description"
+                            rows="4"
+                            className="p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#12d8fa]"
+                            placeholder="Write detailed information about the car..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    {/* Submit Button */}
+                    <div className="col-span-1 md:col-span-2 mt-4">
+                        <button
+                            type="submit"
+                            className="w-full bg-[#12d8fa] text-white p-3 rounded-xl font-semibold 
+                            hover:bg-[#0bc2e1] transition-all duration-300 shadow-md"
+                        >
+                            Add Car
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     );
