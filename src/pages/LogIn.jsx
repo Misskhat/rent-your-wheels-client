@@ -1,13 +1,25 @@
 import React from "react";
 import {Link, useLocation, useNavigate} from "react-router";
+import useAuth from "../hooks/useAuth";
+import {toast, ToastContainer} from "react-toastify";
 
 const LogIn = () => {
+    const {signInUser} = useAuth();
+
     const navigate = useNavigate(); //TODO: after signin i'm use
     const location = useLocation(); //TODO: after signin i'm use
+
     // console.log(navigate());
     const handleLogIn = (e) => {
         e.preventDefault();
-        console.log("clicked");
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        signInUser(email, password)
+        .then((res) => {
+            console.log(res);
+            toast.success("Successfully Login");
+        })
+        .catch((error) => console.log(error));
     };
 
     return (
@@ -33,6 +45,7 @@ const LogIn = () => {
                         >
                             Login
                         </button>
+                        <ToastContainer />
                     </form>
 
                     <div className="divider">OR</div>
