@@ -1,3 +1,5 @@
+import {Link} from "react-router";
+
 const CarCard = ({car}) => {
     return (
         <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
@@ -32,12 +34,14 @@ const CarCard = ({car}) => {
                 </p>
 
                 {/* Button */}
-                <button
-                    className="w-full mt-2 bg-[#12d8fa] text-white py-2 rounded-xl font-semibold 
+                <Link to={`/carDetails/${car._id}`}>
+                    <button
+                        className="w-full mt-2 bg-[#12d8fa] text-white py-2 rounded-xl font-semibold 
                     hover:bg-[#0bc2e1] transition-all duration-300"
-                >
-                    View Details
-                </button>
+                    >
+                        View Details
+                    </button>
+                </Link>
             </div>
         </div>
     );
