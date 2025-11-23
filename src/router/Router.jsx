@@ -9,6 +9,7 @@ import MyListings from "../pages/MyListings";
 import LogIn from "../pages/LogIn";
 import Register from "../pages/Register";
 import PrivateRouter from "../pages/PrivateRouter";
+import MyBooking from "../pages/MyBooking";
 
 export const router = createBrowserRouter([
     {
@@ -54,7 +55,7 @@ export const router = createBrowserRouter([
                 path: "/myBookings",
                 element: (
                     <PrivateRouter>
-                        <MyListings></MyListings>
+                        <MyBooking></MyBooking>
                     </PrivateRouter>
                 ),
             },

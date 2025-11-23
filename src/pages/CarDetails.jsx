@@ -2,8 +2,10 @@ import React, {useEffect, useState} from "react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import {useParams} from "react-router";
 import {toast, ToastContainer} from "react-toastify";
+import useAuth from "../hooks/useAuth";
 
 const CarDetails = () => {
+    const {user} = useAuth();
     const {id} = useParams();
     const [car, setCar] = useState({});
     const [isBooked, setIsBooked] = useState(false);
@@ -22,9 +24,12 @@ const CarDetails = () => {
             location: car?.location,
             price: car?.price,
             type: car?.type,
+            email: user?.email,
+            date: new Date().toISOString().split("T")[0],
+            status: "pending",
         };
 
-        axiousSecure.post("/bookings", carInfo).then(() => {
+        axiousSecure.post(`/bookings`, carInfo).then(() => {
             toast.success("Thank you, for successfully booking your car");
             setIsBooked(!isBooked);
             setAvailable(!available);
