@@ -10,6 +10,7 @@ const BrowseCars = () => {
     }, [axiosSecure]);
     return (
         <div className="w-11/12 mx-auto my-20">
+            <h2 className="text-4xl font-bold mb-5 gradient-text">Browers Cars: {cars.length}</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 place-content-center">
                 {cars.map((car) => (
                     <CarCard key={car._id} car={car}></CarCard>

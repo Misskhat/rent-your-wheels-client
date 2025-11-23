@@ -26,7 +26,7 @@ const features = [
 const WhyChooseUs = () => {
     return (
         <div className="py-20 bg-white">
-            <div className="w-11/12 mx-auto text-center">
+            <div className="w-11/12 mx-auto text-center ">
                 <h2 className="text-4xl font-bold mb-6 text-gray-800">
                     Why <span className="text-[#12d8fa]">Choose Us?</span>
                 </h2>

@@ -1,16 +1,35 @@
 import React, {useEffect, useState} from "react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import {useParams} from "react-router";
+import {toast, ToastContainer} from "react-toastify";
 
 const CarDetails = () => {
     const {id} = useParams();
-
     const [car, setCar] = useState({});
+    const [isBooked, setIsBooked] = useState(false);
+    const [available, setAvailable] = useState(true);
     const axiousSecure = useAxiosSecure();
 
     useEffect(() => {
         axiousSecure.get(`/cars/${id}`).then((data) => setCar(data.data));
     }, [id, axiousSecure]);
+
+    const handleBooking = () => {
+        const carInfo = {
+            carName: car?.carName,
+            description: car?.description,
+            image: car?.image,
+            location: car?.location,
+            price: car?.price,
+            type: car?.type,
+        };
+
+        axiousSecure.post("/bookings", carInfo).then(() => {
+            toast.success("Thank you, for successfully booking your car");
+            setIsBooked(!isBooked);
+            setAvailable(!available);
+        });
+    };
     return (
         <div className="min-h-screen bg-gray-50 py-10 px-4 flex justify-center">
             <div className="w-full max-w-5xl bg-white shadow-xl rounded-2xl overflow-hidden">
@@ -35,12 +54,11 @@ const CarDetails = () => {
 
                         <span
                             className={`px-4 py-1 rounded-full font-medium ${
-                                car.availability === "Available"
-                                    ? "bg-green-100 text-green-600"
-                                    : "bg-red-100 text-red-500"
+                                available ? "bg-green-100 text-green-600" : "bg-red-100 text-red-500"
                             }`}
                         >
-                            {car.availability}
+                            {available ? "Available" : "Unavailable"}
+                            {/* {car.availability} */}
                         </span>
                     </div>
 
@@ -56,17 +74,18 @@ const CarDetails = () => {
                     {/* Button */}
                     <div>
                         <button
-                            disabled={car.availability !== "Available"}
-                            className={`w-full py-3 rounded-xl text-white font-semibold transition-all duration-300
-                                ${
-                                    car.availability === "Available"
-                                        ? "bg-[#12d8fa] hover:bg-[#0bc2e1]"
-                                        : "bg-gray-400 cursor-not-allowed"
-                                }
-                            `}
+                            onClick={handleBooking}
+                            className={
+                                isBooked
+                                    ? ` w-full py-3 rounded-xl text-white font-semibold transition-all duration-300 bg-gray-400 cursor-not-allowed`
+                                    : `w-full py-3 rounded-xl text-white font-semibold transition-all duration-300
+                                ${car.availability === "Available" && "bg-[#12d8fa] hover:bg-[#0bc2e1]"}
+                            `
+                            }
                         >
-                            {car.availability === "Available" ? "Book Now" : "Unavailable"}
+                            {isBooked ? "Unavailable" : "Book Now"}
                         </button>
+                        <ToastContainer />
                     </div>
                 </div>
             </div>
