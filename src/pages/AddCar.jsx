@@ -1,6 +1,9 @@
 import React from "react";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import {toast, ToastContainer} from "react-toastify";
 
 const AddCar = () => {
+    const axiousSecure = useAxiosSecure();
     const handleAddCar = (e) => {
         e.preventDefault();
 
@@ -13,7 +16,7 @@ const AddCar = () => {
         const availability = form.availability.value;
         const description = form.description.value;
 
-        console.log({
+        const newCar = {
             carName,
             image,
             type,
@@ -21,6 +24,13 @@ const AddCar = () => {
             price,
             availability,
             description,
+        };
+
+        axiousSecure.post("/cars", newCar).then((data) => {
+            if (data.data.insertedId) {
+                toast.success("Your Car Information Updated");
+                form.reset();
+            }
         });
     };
 
@@ -133,6 +143,7 @@ const AddCar = () => {
                         >
                             Add Car
                         </button>
+                        <ToastContainer />
                     </div>
                 </form>
             </div>
