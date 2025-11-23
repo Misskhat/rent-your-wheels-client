@@ -28,7 +28,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/carDetails/:id",
-                element: <CarDetails></CarDetails>,
+                element: (
+                    <PrivateRouter>
+                        <CarDetails></CarDetails>
+                    </PrivateRouter>
+                ),
             },
             {
                 path: "/addCar",
@@ -40,11 +44,19 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/myListings",
-                element: <MyListings></MyListings>,
+                element: (
+                    <PrivateRouter>
+                        <MyListings></MyListings>
+                    </PrivateRouter>
+                ),
             },
             {
                 path: "/myBookings",
-                element: <MyListings></MyListings>,
+                element: (
+                    <PrivateRouter>
+                        <MyListings></MyListings>
+                    </PrivateRouter>
+                ),
             },
             {
                 path: "/login",

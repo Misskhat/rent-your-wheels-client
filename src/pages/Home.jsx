@@ -1,5 +1,6 @@
 import Banner from "../components/Banner";
 import FeaturedCars from "../components/FeaturedCars";
+import Testimonials from "../components/Testimonials";
 import WhyChooseUs from "../components/WhyChooseUs";
 
 const Home = () => {
@@ -9,6 +10,7 @@ const Home = () => {
             <h2 className="my-10 text-4xl text-center font-bold">Our Featured Cars </h2>
             <FeaturedCars></FeaturedCars>
             <WhyChooseUs></WhyChooseUs>
+            <Testimonials></Testimonials>
         </div>
     );
 };
