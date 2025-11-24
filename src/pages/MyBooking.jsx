@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import {toast, ToastContainer} from "react-toastify";
 
 const MyBooking = () => {
     const {user} = useAuth();
@@ -9,20 +10,29 @@ const MyBooking = () => {
 
     useEffect(() => {
         if (!user?.email) {
-            console.log("No user email yet");
+            // console.log("No user email yet");
             return;
         }
-
-        console.log("Fetching bookings for:", user.email);
 
         axiosSecure
         .get(`/bookings?email=${user.email}`)
         .then((res) => {
-            console.log("Response:", res.data);
-            setBookings(res.data); // FIXED
+            setBookings(res.data);
         })
         .catch((err) => console.log("Error:", err));
     }, [axiosSecure, user?.email]);
+
+    const handleDelete = (id) => {
+        console.log("clicked  from handle delete", id);
+        axiosSecure
+        .delete(`/bookings/${id}`)
+        .then(() => {
+            toast.done("Your booked car was remove from your listing data");
+            const afterRemoveData = bookings.filter((b) => b._id !== id);
+            setBookings(afterRemoveData);
+        })
+        .catch((error) => console.log(error));
+    };
 
     return (
         <div className="w-11/12 mx-auto py-10">
@@ -51,11 +61,12 @@ const MyBooking = () => {
                             </span>
 
                             <button
-                                //Todo onClick={() => handleDelete(b._id)}
+                                onClick={() => handleDelete(b._id)}
                                 className="mt-4 w-full py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white font-semibold transition"
                             >
                                 Cancel Booking
                             </button>
+                            <ToastContainer></ToastContainer>
                         </div>
                     ))}
                 </div>
