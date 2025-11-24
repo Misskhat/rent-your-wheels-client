@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import {toast, ToastContainer} from "react-toastify";
+import Swal from "sweetalert2";
 
 const MyListings = () => {
     const {user} = useAuth();
@@ -18,7 +20,31 @@ const MyListings = () => {
     }, [axiosSecure, user]);
 
     const handleDelete = (id) => {
-        console.log("clicked", id);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/myListings/${id}`).then(() => {
+                    const afterDeleteCars = cars.filter((car) => car._id !== id);
+                    setCars(afterDeleteCars);
+                });
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success",
+                });
+            }
+        });
+    };
+
+    const handleEdit = (id) => {
+        console.log("from edit", id);
     };
     return (
         <div className="w-11/12 mx-auto py-10">
@@ -30,7 +56,7 @@ const MyListings = () => {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {cars.map((car) => (
                         <div key={car._id} className="p-5 bg-white rounded-xl shadow hover:shadow-lg transition">
-                            <img src={car.image} className="w-full h-40 object-cover rounded-md" />
+                            <img src={car.image} className="w-full object-cover rounded-md" />
 
                             <h3 className="text-xl font-bold mt-3">{car.carName}</h3>
                             <p className="text-gray-600">{car.description?.slice(0, 60)}...</p>
@@ -42,7 +68,10 @@ const MyListings = () => {
                             <p className="text-sm text-gray-500">Type: {car.type}</p>
 
                             <div className="flex justify-between mt-4">
-                                <button className="px-4 py-2 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-white">
+                                <button
+                                    onClick={() => handleEdit(car._id)}
+                                    className="px-4 py-2 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-white"
+                                >
                                     Edit
                                 </button>
 

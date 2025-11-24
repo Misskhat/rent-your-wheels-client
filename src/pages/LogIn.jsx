@@ -15,7 +15,7 @@ const LogIn = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         signInUser(email, password)
-        .then((res) => {
+        .then(() => {
             // console.log(res);
             navigate(location?.state || "/");
             toast.success("Successfully Login");
