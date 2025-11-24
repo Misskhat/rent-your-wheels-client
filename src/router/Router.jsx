@@ -14,13 +14,11 @@ import MyBooking from "../pages/MyBooking";
 export const router = createBrowserRouter([
     {
         path: "/",
-        errorElement: <ErrorPage></ErrorPage>,
-        hydrateFallbackElement: <ErrorPage></ErrorPage>,
         element: <MainLayout></MainLayout>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 index: true,
-                path: "/",
                 element: <Home></Home>,
             },
             {

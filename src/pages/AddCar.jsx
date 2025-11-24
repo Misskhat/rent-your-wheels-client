@@ -1,8 +1,10 @@
 import React from "react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import {toast, ToastContainer} from "react-toastify";
+import useAuth from "../hooks/useAuth";
 
 const AddCar = () => {
+    const {user} = useAuth();
     const axiousSecure = useAxiosSecure();
     const handleAddCar = (e) => {
         e.preventDefault();
@@ -24,6 +26,7 @@ const AddCar = () => {
             price,
             availability,
             description,
+            email: user.email,
         };
 
         axiousSecure.post("/cars", newCar).then((data) => {
@@ -32,6 +35,8 @@ const AddCar = () => {
                 form.reset();
             }
         });
+
+        
     };
 
     return (
