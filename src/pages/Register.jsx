@@ -3,7 +3,7 @@ import useAuth from "../hooks/useAuth";
 import {toast, ToastContainer} from "react-toastify";
 
 const Register = () => {
-    const {signUpUser, profileAdded} = useAuth();
+    const {signUpUser, profileAdded, googleSignIn} = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -15,7 +15,7 @@ const Register = () => {
         const email = e.target.email.value;
         const photoURL = e.target.photoURL.value;
         const password = e.target.password.value;
-        console.log(name, email, photoURL, password);
+        // console.log(name, email, photoURL, password);
 
         if (password.length < 6) {
             return toast.error("Password must be at least 6 characters long");

@@ -18,7 +18,7 @@ const MyListings = () => {
         axiosSecure
         .get(`/myListings?email=${user.email}`)
         .then((data) => setCars(data.data))
-        .catch((error) => console.log(error));
+        // .catch((error) => console.log(error));
     }, [axiosSecure, user]);
 
     const handleDelete = (id) => {

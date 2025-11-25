@@ -20,7 +20,7 @@ const LogIn = () => {
             navigate(location?.state || "/");
             toast.success("Successfully Login");
         })
-        .catch((error) => console.log(error));
+        // .catch((error) => console.log(error));
     };
 
     // SignIn google provider

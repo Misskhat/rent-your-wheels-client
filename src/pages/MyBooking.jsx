@@ -23,7 +23,7 @@ const MyBooking = () => {
     }, [axiosSecure, user?.email]);
 
     const handleDelete = (id) => {
-        console.log("clicked  from handle delete", id);
+        // console.log("clicked  from handle delete", id);
         axiosSecure
         .delete(`/bookings/${id}`)
         .then(() => {
