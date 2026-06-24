@@ -30,6 +30,18 @@ A full-stack MERN project for renting and listing cars. Users can browse cars, v
 
 ---
 
+## 🔐 Test Credentials / Login Information
+
+You can use the following default credentials to test the authentication capabilities:
+
+| Email | Password |
+| :--- | :--- |
+| test@email.com | Test@123456 |
+
+> 💡 **Note:** You can also use the "Google Sign-In" feature on the login page to authenticate seamlessly with your personal Google account.
+
+---
+
 ## 🧰 Technologies Used
 
 ### **Frontend**
